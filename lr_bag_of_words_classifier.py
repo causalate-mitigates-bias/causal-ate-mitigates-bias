@@ -23,6 +23,7 @@ X_train, X_test, y_train, y_test = train_test_split(X, df['labels'], test_size=0
 classifier = LogisticRegression()
 classifier.fit(X_train, y_train)
 
+
 # Make predictions on the test set
 y_pred = classifier.predict(X_test)
 
