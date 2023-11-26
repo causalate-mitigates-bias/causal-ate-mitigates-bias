@@ -12,6 +12,9 @@ if "%~1"=="" (
 REM Extract the commit message from the first argument
 set commit_message=%~1
 
+echo "argument"
+echo %~1
+
 REM Add all changes, commit with the provided message, and push
 git add -A
 git commit -m "%commit_message%"
