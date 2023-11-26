@@ -1,6 +1,11 @@
-::# run this file as "cmd < sync_code.sh"
+::# run this file as "cmd < sync_code.sh update"
 
+
+# Extract the commit message from args[0]
+commit_message="$0"
+
+
+# Add all changes, commit with the provided message, and push
 git add -A
-git commit -m "syncing code"
-
-git push origin main
+git commit -m "$commit_message"
+git push
