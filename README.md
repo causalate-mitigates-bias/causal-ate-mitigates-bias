@@ -34,7 +34,17 @@ In this repository, you will find:
 
 We have made our entire code available on this GitHub repository: [Causal ATE Mitigates Bias GitHub Repo](https://github.com/causal-ate-mitigates-bias/causal-ate-mitigates-bias).
 
+To compute ATE scores, run the following script:
+
+```bash
+python compute_ate_scores.py
+```
+
 We encourage reviewers to explore this repository and evaluate whether our code framework adequately addresses concerns related to experimental verification.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](https://github.com/causal-ate-mitigates-bias/causal-ate-mitigates-bias/blob/main/LICENSE) file for details.
 
 ## Dataset References
 
