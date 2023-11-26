@@ -81,7 +81,7 @@ if __name__ == "__main__":
 
     # ZAMPIERI
     data = clean_data.clean_data(filename='zampieri')
-    classifier, vectorizer = lr_bag_of_words_classifier.train_classifier(gao_data)
+    classifier, vectorizer = lr_bag_of_words_classifier.train_classifier(data)
 
     unmasked_path = "outputs/zampieri_unmasked.csv"
     my_file = Path(unmasked_path)
