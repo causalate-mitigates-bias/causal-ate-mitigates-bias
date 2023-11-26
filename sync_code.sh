@@ -3,7 +3,7 @@
 # Extract the commit message from args[1]
 commit_message="$1"
 
-echo "$@"
+echo "$1"
 
 # Add all changes, commit with the provided message, and push
 git add -A
