@@ -8,7 +8,17 @@ This repository presents an extension of our previous theoretical work, addressi
 
 ### Comparison Table
 
-The following table summarizes the comparison between classifier predictions and ATE scores:
+The following table summarizes the comparison between classifier predictions and ATE scores for the Zampieri et al., 2019 dataset:
+
+| **Input**  | **Classifier Predictions** | **ATE Scores** |
+|------------|-----------------------------|----------------|
+| female     | 0.298005                    | 0.088414       |
+| black      | 0.235770                    | 0.044404       |
+| gay        | 0.259882                    | 0.071427       |
+| hispanic   | 0.161886                    | 0.003732       |
+| african    | 0.174550                    | 0.017795       |
+
+The following table summarizes the comparison between classifier predictions and ATE scores for the Gao et al., 2019 dataset:
 
 | **Input**  | **Classifier Predictions** | **ATE Scores** |
 |------------|-----------------------------|----------------|
