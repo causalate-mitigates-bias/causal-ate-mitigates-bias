@@ -11,6 +11,9 @@ outputs/gao_unmasked_with_scores.csv
 outputs/zampieri_masked_df.csv
 outputs/zampieri_unmasked_df.csv
 outputs/zampieri_unmasked_replaced.csv
+outputs/zampieri_unmasked_with_scores.csv
+outputs/zampieri_unmasked_with_scores.csv
+
 
 # IntelliJ project files
 .idea

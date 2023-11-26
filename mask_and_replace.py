@@ -257,11 +257,11 @@ if __name__ == "__main__":
     np.set_printoptions(precision=6, suppress=True, linewidth=200)
     normalizer_sequence = [NFD(), StripAccents(), Strip(), Lowercase()]
     # gao_data = clean_data.clean_data(filename='gao')
-    # gao_data_masked, gao_data_unmasked = create_masked_replacements(input_df=gao_data,
-    #                                                                 outfile_masked="outputs/gao_masked.csv",
-    #                                                                 outfile_unmasked="outputs/gao_unmasked.csv",
-    #                                                                 normalizer_sequence=normalizer_sequence,
-    #                                                                 replacement_model='roberta-base')
+    gao_data_masked, gao_data_unmasked = create_masked_replacements(input_df=gao_data,
+                                                                    outfile_masked="outputs/gao_masked.csv",
+                                                                    outfile_unmasked="outputs/gao_unmasked.csv",
+                                                                    normalizer_sequence=normalizer_sequence,
+                                                                    replacement_model='roberta-base')
 
 
 
@@ -272,3 +272,7 @@ if __name__ == "__main__":
                                                                     outfile_unmasked="outputs/zampieri_unmasked.csv",
                                                                     normalizer_sequence=normalizer_sequence,
                                                                     replacement_model='roberta-base')
+
+    # Calculate and print the total time taken to run the code
+    print("time taken to run = %0.6f seconds" % (time.time() - start_time))
+

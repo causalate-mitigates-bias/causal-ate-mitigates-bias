@@ -2,6 +2,23 @@ import pandas as pd
 from tokenizers.normalizers import NFD, StripAccents, Strip, Lowercase
 from nltk.tokenize import word_tokenize
 
+def pretty_print_three_preds(input_list, predictions, ate_scores):
+    # Header row
+    print("=" * 75)  # Separator line
+    print("||\tInput\t|\tClassifier Pred\t|\tATE Scores\t||")
+    print("=" * 75)  # Separator line
+    # print("||\tword\t|\tprob of toxicity\t||")
+    for i in range(len(input_list)):
+        # Convert the prediction value to a regular Python float
+        prediction_value = float(predictions[i][1])
+        ate_score = float(ate_scores[i])
+
+        # print("||\t", input_list[i],"\t|\t",predictions[i][1],"\t||")
+        # Format the output with fixed column widths and right-aligned content
+        formatted_output = f"||\t{input_list[i]:<10}\t|\t{prediction_value:.6f}\t|\t{ate_score:.6f}\t||"
+        print(formatted_output)
+    print("=" * 75)  # Separator line
+    print("")
 
 
 
