@@ -1,8 +1,6 @@
 ::# run this file as "cmd < sync_code_windows.sh update"
 
 
-@echo off
-
 REM Check if a commit message argument is provided
 if "%~1"=="" (
     echo Usage: %0 ^<commit_message^>
