@@ -38,6 +38,10 @@ dataset:
 | hispanic  | 0.165930                   | 0.011108       |
 | african   | 0.201015                   | 0.099372       |
 
+Visual representation of these comparisons can be found in the plot below:
+
+![Comparison of Classifier Predictions and ATE Scores](https://github.com/causal-ate-mitigates-bias/causal-ate-mitigates-bias/blob/main/plots/difference_in_bias_side_by_side.png)
+
 ### Key Findings
 
 The ATE scores obtained from a logistic regression-based classifier for bias-inducing words are consistently lower than
