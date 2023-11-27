@@ -40,7 +40,8 @@ dataset:
 
 Visual representation of these comparisons can be found in the plot below:
 
-![Comparison of Classifier Predictions and ATE Scores](https://github.com/causal-ate-mitigates-bias/causal-ate-mitigates-bias/blob/main/plots/difference_in_bias_side_by_side.png)
+![Comparison of Classifier Predictions and ATE Scores](plots/difference_in_bias_side_by_side.png)
+
 
 ### Key Findings
 
