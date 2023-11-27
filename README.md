@@ -1,4 +1,4 @@
-# Causal ATE Mitigates Bias
+# Causal ATE Mitigates Unintended Bias
 
 ## Overview
 
