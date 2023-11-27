@@ -16,8 +16,8 @@ Zampieri et al., 2019, for bias inducing words that may include protected groups
 
 We conducted detailed assessments using two notable datasets. The results are as below.
 
-The following table summarizes the comparison between classifier predictions and ATE scores for the Zampieri et al.,
-2019 dataset.
+The following table summarizes the comparison between classifier predictions and ATE scores (computed using the 
+classifier predictions) for the Zampieri et al. (2019) dataset.
 
 | **Input** | **Classifier Predictions** | **ATE Scores** |
 |-----------|----------------------------|----------------|
@@ -27,8 +27,8 @@ The following table summarizes the comparison between classifier predictions and
 | hispanic  | 0.161886                   | 0.003732       |
 | african   | 0.174550                   | 0.017795       |
 
-The following table summarizes the comparison between classifier predictions and ATE scores for the Gao et al., 2019
-dataset:
+The following table summarizes the comparison between classifier predictions and ATE scores (computed using the 
+classifier predictions) for the Gao et al. (2019) dataset:
 
 | **Input** | **Classifier Predictions** | **ATE Scores** |
 |-----------|----------------------------|----------------|
