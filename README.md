@@ -32,31 +32,40 @@ The following table summarizes the comparison between classifier predictions and
 
 The ATE scores obtained from a logistic regression-based classifier for bias-inducing words consistently appear lower than those obtained directly from the classifier's predictions.
 
-## Repository Content
 
-In this repository, you will find:
+## Repository Structure
 
-- Code for causal ATE computation.
-- Generation rules and code to enhance code replicability.
-- Supplementary material with details on our experimental setup.
+This repository is organized as follows:
 
-## Accessing the Code
+- `compute_ate_scores.py`: Python script for calculating ATE scores. This file calls:
+  - `clean_data.py`: Python script for cleaning the input file with basic normalizations.
+  - `lr_bag_of_words_classifier.py`: Here we train a logistical regression based classifier assuming each sentence is a bag of words.
+  - `mask_and_replace.py`: To compute the ATE scores, we need replacement words for each word. These are generated using an MLM model like **roberta_base**
+  - `utilities.py`: Several utility functions called by across the codebase.
+  - `word_utils.py`: Several NLP utility functions called by across the codebase.
+- `outputs/`: Output files generated during ATE Computation.
+- `datasets/`: Datasets used in our experiments.
+- `sync_code.sh`: Code used to sync with github repo
+- `requirements.txt`: Contains package requirements to be installed using pip.
+- `LICENSE`: Terms of use and sharing.
 
-We have made our entire code available on this GitHub repository: [Causal ATE Mitigates Bias GitHub Repo](https://github.com/causal-ate-mitigates-bias/causal-ate-mitigates-bias).
+## Getting Started
 
-To compute ATE scores, run the following script:
+Clone this repository and navigate to the project directory. To compute ATE scores, execute:
 
 ```bash
 python compute_ate_scores.py
 ```
 
-We encourage reviewers to explore this repository and evaluate whether our code framework adequately addresses concerns related to experimental verification.
+We invite reviewers and fellow researchers to delve into our codebase for Causal ATE computation.
+
 
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](https://github.com/causal-ate-mitigates-bias/causal-ate-mitigates-bias/blob/main/LICENSE) file for details.
 
-## Dataset References
+## Data Sources
+
 
 The experiments in this repository are based on the following datasets:
 
