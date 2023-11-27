@@ -16,7 +16,7 @@ Zampieri et al., 2019, for bias inducing words that may include protected groups
 
 We conducted detailed assessments using two notable datasets. The results are as below.
 
-The following table summarizes the comparison between classifier predictions and ATE scores (computed using the 
+The following table summarizes the comparison between classifier predictions and ATE scores (computed using the
 classifier predictions) for the Zampieri et al. (2019) dataset.
 
 | **Input** | **Classifier Predictions** | **ATE Scores** |
@@ -27,7 +27,7 @@ classifier predictions) for the Zampieri et al. (2019) dataset.
 | hispanic  | 0.161886                   | 0.003732       |
 | african   | 0.174550                   | 0.017795       |
 
-The following table summarizes the comparison between classifier predictions and ATE scores (computed using the 
+The following table summarizes the comparison between classifier predictions and ATE scores (computed using the
 classifier predictions) for the Gao et al. (2019) dataset:
 
 | **Input** | **Classifier Predictions** | **ATE Scores** |
@@ -41,7 +41,6 @@ classifier predictions) for the Gao et al. (2019) dataset:
 Visual representation of these comparisons can be found in the plot below:
 
 ![Comparison of Classifier Predictions and ATE Scores](plots/difference_in_bias_side_by_side.png)
-
 
 ### Key Findings
 
@@ -68,7 +67,14 @@ This repository is organized as follows:
 
 ## Getting Started
 
-Clone this repository and navigate to the project directory. To compute ATE scores, execute:
+Clone this repository and navigate to the project directory. Create a virtual 
+environment as required. Then install the required packages:
+
+```bash
+pip install -r requirements.txt
+```
+
+To compute ATE scores, execute:
 
 ```bash
 python compute_ate_scores.py
