@@ -14,7 +14,7 @@ Zampieri et al., 2019, for bias inducing words that may include protected groups
 
 ### Comparative Analysis
 
-We conducted detailed assessments using two notable datasets. The results are as below.
+We conducted detailed assessments using two notable datasets. The results are provided in the table below.
 
 The following table summarizes the comparison between classifier predictions and ATE scores (computed using the
 classifier predictions) for the Zampieri et al. (2019) dataset.
