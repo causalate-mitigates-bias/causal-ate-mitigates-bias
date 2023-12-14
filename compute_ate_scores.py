@@ -5,6 +5,10 @@ import lr_bag_of_words_classifier, clean_data, mask_and_replace
 from utilities import pretty_print_three_preds
 from pathlib import Path
 
+# Disable Setting with copy warning. This is false positive error. See following discussion.
+# https://stackoverflow.com/questions/20625582/how-to-deal-with-settingwithcopywarning-in-pandas
+pd.options.mode.chained_assignment = None  # default='warn'
+
 
 def getATEScores(input_unmasked_df, input_classifier, input_vectorizer,
                  output_unmasked_file_with_scores="outputs/gao_unmasked_with_scores.csv",
@@ -23,11 +27,11 @@ def getATEScores(input_unmasked_df, input_classifier, input_vectorizer,
     input_predictions = [x[1] for x in input_predictions]
 
     # If you want to add these predictions back into the DataFrame
-    input_unmasked_df['unmasked_predictions'] = new_predictions
-    input_unmasked_df['input_predictions'] = input_predictions
-    input_unmasked_df['decrease_on_replacement'] = input_unmasked_df['input_predictions'] - input_unmasked_df[
+    input_unmasked_df.loc[:,'unmasked_predictions'] = new_predictions
+    input_unmasked_df.loc[:,'input_predictions'] = input_predictions
+    input_unmasked_df.loc[:,'decrease_on_replacement'] = input_unmasked_df['input_predictions'] - input_unmasked_df[
         'unmasked_predictions']
-    input_unmasked_df['abs_decrease_on_replacement'] = np.maximum(0, input_unmasked_df['decrease_on_replacement'])
+    input_unmasked_df.loc[:,'abs_decrease_on_replacement'] = np.maximum(0, input_unmasked_df['decrease_on_replacement'])
 
     input_unmasked_df.to_csv(output_unmasked_file_with_scores, sep="|")
 

@@ -16,7 +16,10 @@ def train_classifier(input_df, text_column_name='text',labels_column_name='label
     X_train, X_test, y_train, y_test = train_test_split(X, input_df[labels_column_name], test_size=test_size, random_state=random_seed)
 
     # Train a logistic regression classifier
-    classifier = LogisticRegression()
+    # I changed max_iter from 100 to 1000 as lbfgs was not reaching convergence.
+    # See discussion here:
+    # https://stackoverflow.com/a/62659927
+    classifier = LogisticRegression(solver='lbfgs', max_iter=1000)
     classifier.fit(X_train, y_train)
 
     # Make predictions on the test set

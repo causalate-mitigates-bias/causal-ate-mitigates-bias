@@ -48,8 +48,21 @@ def expand_df_with_masked_words(inputDF):
 
 # We can try Stop words from nltk
 def get_NLTK_stop_words():
-    # nltk.download('stopwords')
-    # nltk.download('punkt')
+    # If not downloaded, download the 'punkt' and 'stopwords' dictionaries.
+    # Check if 'stopwords' is already downloaded
+    try:
+        nltk.data.find('corpora/stopwords')
+    except LookupError:
+        # If not found, download stopwords
+        nltk.download('stopwords')
+
+    # Check if 'punkt' is already downloaded
+    try:
+        nltk.data.find('corpora/punkt')
+    except LookupError:
+        # If not found, download punkt
+        nltk.download('punkt')
+
     nltkStopwords = nltk.corpus.stopwords.words('english')
     # print(nltkStopwords)
     return nltkStopwords
@@ -59,6 +72,7 @@ def convert_string_to_list(inputString):
     outList = []
     outList[:0] = inputString
     return outList
+
 
 
 def getStopWords():
@@ -256,7 +270,7 @@ if __name__ == "__main__":
     np.random.seed(8)
     np.set_printoptions(precision=6, suppress=True, linewidth=200)
     normalizer_sequence = [NFD(), StripAccents(), Strip(), Lowercase()]
-    # gao_data = clean_data.clean_data(filename='gao')
+    gao_data = clean_data.clean_data(filename='gao')
     gao_data_masked, gao_data_unmasked = create_masked_replacements(input_df=gao_data,
                                                                     outfile_masked="outputs/gao_masked.csv",
                                                                     outfile_unmasked="outputs/gao_unmasked.csv",
