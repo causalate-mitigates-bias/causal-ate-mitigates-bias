@@ -6,11 +6,11 @@
 export KEY="causalatemitigatesbias"
 
 
-git config --local user.name "CAte Mitigates Bias"
-git config --local user.email  "causalatemitigatesbias@gmail.com"
+git config --local user.name " causalate-mitigates-bias "
+git config --local user.email  "rahul.m+causalatemitigatesbias@isbmb.ac.in"
 
 # Add the correct key to the github account
-git config --add --local core.sshCommand 'ssh -i ~/.ssh/$KEY'
+git config --add --local core.sshCommand 'ssh -i ~/.ssh/cate_mitigates_bias'
 
 
 # Add all changes, commit with the provided message, and push

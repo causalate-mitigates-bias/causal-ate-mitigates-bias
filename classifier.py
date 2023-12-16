@@ -4,10 +4,16 @@ import time
 from sklearn.model_selection import train_test_split
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.linear_model import LogisticRegression
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.svm import SVC
+from sklearn.naive_bayes import MultinomialNB
+
 from sklearn.metrics import accuracy_score
 import clean_data
 
-def train_classifier(input_df, text_column_name='text',labels_column_name='labels', test_size=0.05, random_seed=8):
+
+def train_classifier(input_df, text_column_name='text',labels_column_name='labels', test_size=0.05, random_seed=8,
+                     classifier="LR"):
     # Create a bag of words representation using CountVectorizer
     vectorizer = CountVectorizer()
     X = vectorizer.fit_transform(input_df[text_column_name])
@@ -19,7 +25,14 @@ def train_classifier(input_df, text_column_name='text',labels_column_name='label
     # I changed max_iter from 100 to 1000 as lbfgs was not reaching convergence.
     # See discussion here:
     # https://stackoverflow.com/a/62659927
-    classifier = LogisticRegression(solver='lbfgs', max_iter=1000)
+    if classifier=="LR":
+        classifier = LogisticRegression(solver='lbfgs', max_iter=1000)
+    elif classifier=="SVM":
+        classifier = SVC(kernel='linear')
+    elif classifier=="DecisionTree":
+        classifier = DecisionTreeClassifier(random_state=random_seed)  # Initialize the Decision Tree Classifier
+    else:
+        classifier = MultinomialNB()  # Initialize the Multinomial Naive Bayes Classifier
     classifier.fit(X_train, y_train)
 
     # Make predictions on the test set
@@ -66,7 +79,7 @@ if __name__ == "__main__":
     zampieri_classifier, vectorizer_zampieri = train_classifier(zampieri_data)
 
     # Make predictions
-    test_array = ["female", "muslim", "black", "gay", "hispanic", "african", "hi"]
+    test_array = ["female", "black", "gay", "hispanic", "african", "hi"]
     # Convert the list of words into a bag of words representation
     # using the same vectorizer that you used for training
     X_test = vectorizer_gao.transform(test_array)

@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 import time
-import lr_bag_of_words_classifier, clean_data, mask_and_replace
+import classifier, clean_data, mask_and_replace
 from utilities import pretty_print_three_preds
 from pathlib import Path
 
@@ -56,7 +56,7 @@ if __name__ == "__main__":
 
     # GAO
     data = clean_data.clean_data(filename='gao')
-    classifier, vectorizer = lr_bag_of_words_classifier.train_classifier(data)
+    classifier, vectorizer = classifier.train_classifier(data)
 
     unmasked_path = "outputs/gao_unmasked.csv"
     my_file = Path(unmasked_path)
@@ -64,10 +64,10 @@ if __name__ == "__main__":
         # file exists
         unmasked_df = pd.read_csv(unmasked_path, sep="|")
     else:
-        masked_df, unmasked_df = create_masked_replacements(input_df=data,
+        masked_df, unmasked_df = mask_and_replace.create_masked_replacements(input_df=data,
                                                             outfile_masked="outputs/gao_masked.csv",
                                                             outfile_unmasked=unmasked_path,
-                                                            normalizer_sequence=normalizer_sequence,
+                                                            normalizer_sequence=None,
                                                             replacement_model='roberta-base')
 
     ate_dict = getATEScores(input_unmasked_df=unmasked_df, input_classifier=classifier,
@@ -85,7 +85,7 @@ if __name__ == "__main__":
 
     # ZAMPIERI
     data = clean_data.clean_data(filename='zampieri')
-    classifier, vectorizer = lr_bag_of_words_classifier.train_classifier(data)
+    classifier, vectorizer = classifier.train_classifier(data)
 
     unmasked_path = "outputs/zampieri_unmasked.csv"
     my_file = Path(unmasked_path)
@@ -93,10 +93,10 @@ if __name__ == "__main__":
         # file exists
         unmasked_df = pd.read_csv(unmasked_path, sep="|")
     else:
-        masked_df, unmasked_df = create_masked_replacements(input_df=data,
+        masked_df, unmasked_df = mask_and_replace.create_masked_replacements(input_df=data,
                                                             outfile_masked="outputs/gao_masked.csv",
                                                             outfile_unmasked=unmasked_path,
-                                                            normalizer_sequence=normalizer_sequence,
+                                                            normalizer_sequence=None,
                                                             replacement_model='roberta-base')
 
 

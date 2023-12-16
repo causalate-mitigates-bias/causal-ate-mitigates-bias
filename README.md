@@ -53,7 +53,7 @@ This repository is organized as follows:
 
 - `compute_ate_scores.py`: Python script for calculating ATE scores. This file calls:
     - `clean_data.py`: Python script for cleaning the input file with basic normalizations.
-    - `lr_bag_of_words_classifier.py`: Here we train a logistical regression based classifier assuming each sentence is
+    - `classifier.py`: Here we train different types of classifiers  assuming each sentence is
       a bag of words.
     - `mask_and_replace.py`: To compute the ATE scores, we need replacement words for each word. These are generated
       using an MLM model like **roberta_base**
