@@ -11,8 +11,8 @@ pd.options.mode.chained_assignment = None  # default='warn'
 
 
 def getATEScores(input_unmasked_df, input_classifier, input_vectorizer,
-                 output_unmasked_file_with_scores="outputs/gao_unmasked_with_scores.csv",
-                 output_ate_csv_file="outputs/gao_scores.csv"):
+                 output_unmasked_file_with_scores="outputs/zampieri_unmasked_with_scores.csv",
+                 output_ate_csv_file="outputs/zampieri_scores.csv"):
     input_unmasked_df = input_unmasked_df[input_unmasked_df['unmasked_sentences'].notna()]
     gao_unmasked_sentences = input_unmasked_df["unmasked_sentences"]
 
@@ -94,7 +94,7 @@ if __name__ == "__main__":
         unmasked_df = pd.read_csv(unmasked_path, sep="|")
     else:
         masked_df, unmasked_df = mask_and_replace.create_masked_replacements(input_df=data,
-                                                            outfile_masked="outputs/gao_masked.csv",
+                                                            outfile_masked="outputs/zampieri_masked.csv",
                                                             outfile_unmasked=unmasked_path,
                                                             normalizer_sequence=None,
                                                             replacement_model='roberta-base')

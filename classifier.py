@@ -31,6 +31,8 @@ def train_classifier(input_df, text_column_name='text',labels_column_name='label
         classifier = SVC(kernel='linear')
     elif classifier=="DecisionTree":
         classifier = DecisionTreeClassifier(random_state=random_seed)  # Initialize the Decision Tree Classifier
+    elif classifier=="NaiveBayes":
+        classifier = MultinomialNB()
     else:
         classifier = MultinomialNB()  # Initialize the Multinomial Naive Bayes Classifier
     classifier.fit(X_train, y_train)
