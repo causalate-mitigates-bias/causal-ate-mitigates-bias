@@ -41,7 +41,8 @@ classifier predictions) for the Gao et al. (2019) dataset:
 Visual representation of these comparisons can be found in the plot below:
 
 
-![Comparison of Classifier Predictions and ATE Scores for different datasets](E:\projects\causal-ate-mitigates-bias\plots\multiple_classifiers.png)
+![Comparison of Classifier Predictions and ATE Scores for different models](plots/multiple_classifiers.png)
+
 
 ![Comparison of Classifier Predictions and ATE Scores for different models](plots/difference_in_bias_side_by_side.png)
 
