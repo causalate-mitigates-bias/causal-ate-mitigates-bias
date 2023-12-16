@@ -5,6 +5,8 @@ from sklearn.model_selection import train_test_split
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.linear_model import LogisticRegression
 from sklearn.tree import DecisionTreeClassifier
+from sklearn.ensemble import GradientBoostingClassifier
+
 from sklearn.svm import SVC
 from sklearn.naive_bayes import MultinomialNB
 
@@ -12,29 +14,30 @@ from sklearn.metrics import accuracy_score
 import clean_data
 
 
-def train_classifier(input_df, text_column_name='text',labels_column_name='labels', test_size=0.05, random_seed=8,
+def train_classifier(input_df, text_column_name='text', labels_column_name='labels', test_size=0.05, random_seed=8,
                      classifier="LR"):
     # Create a bag of words representation using CountVectorizer
     vectorizer = CountVectorizer()
     X = vectorizer.fit_transform(input_df[text_column_name])
 
     # Split the data into training and testing sets
-    X_train, X_test, y_train, y_test = train_test_split(X, input_df[labels_column_name], test_size=test_size, random_state=random_seed)
+    X_train, X_test, y_train, y_test = train_test_split(X, input_df[labels_column_name], test_size=test_size,
+                                                        random_state=random_seed)
 
     # Train a logistic regression classifier
     # I changed max_iter from 100 to 1000 as lbfgs was not reaching convergence.
     # See discussion here:
     # https://stackoverflow.com/a/62659927
-    if classifier=="LR":
+    if classifier == "LR":
         classifier = LogisticRegression(solver='lbfgs', max_iter=1000)
-    elif classifier=="SVM":
-        classifier = SVC(kernel='linear')
-    elif classifier=="DecisionTree":
-        classifier = DecisionTreeClassifier(random_state=random_seed)  # Initialize the Decision Tree Classifier
-    elif classifier=="NaiveBayes":
+    elif classifier == "SVM":
+        classifier = SVC(kernel='linear', probability=True)
+    elif classifier=="GradientBoost":
+        classifier = GradientBoostingClassifier(random_state=42)
+    elif classifier == "NaiveBayes":
         classifier = MultinomialNB()
     else:
-        classifier = MultinomialNB()  # Initialize the Multinomial Naive Bayes Classifier
+        classifier = MultinomialNB()  # Setting Multinomial Naive Bayes Classifier as default
     classifier.fit(X_train, y_train)
 
     # Make predictions on the test set
@@ -62,6 +65,7 @@ def pretty_print_preds(input_list, predictions):
         print(formatted_output)
     print("=" * 58)  # Separator line
     print("")
+
 
 if __name__ == "__main__":
     # Record the start time

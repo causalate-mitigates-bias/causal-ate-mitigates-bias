@@ -53,12 +53,14 @@ This repository is organized as follows:
 
 - `compute_ate_scores.py`: Python script for calculating ATE scores. This file calls:
     - `clean_data.py`: Python script for cleaning the input file with basic normalizations.
-    - `classifier.py`: Here we train different types of classifiers  assuming each sentence is
+    - `classifier.py`: Here we train different types of classifiers assuming each sentence is
       a bag of words.
     - `mask_and_replace.py`: To compute the ATE scores, we need replacement words for each word. These are generated
       using an MLM model like **roberta_base**
     - `utilities.py`: Several utility functions called by across the codebase.
     - `word_utils.py`: Several NLP utility functions called by across the codebase.
+- `compute_ate_scores_multiple_classifiers.py`: Computes the ATE scores for multiple models like LogisticRegression,
+  SVM, GradientBoost and NaiveBayes
 - `outputs/`: Output files generated during ATE Computation.
 - `datasets/`: Datasets used in our experiments.
 - `sync_code.sh`: Code used to sync with github repo
@@ -67,7 +69,7 @@ This repository is organized as follows:
 
 ## Getting Started
 
-Clone this repository and navigate to the project directory. Create a virtual 
+Clone this repository and navigate to the project directory. Create a virtual
 environment as required. Then install the required packages:
 
 ```bash
@@ -80,7 +82,13 @@ To compute ATE scores, execute:
 python compute_ate_scores.py
 ```
 
-We invite reviewers and fellow researchers to delve into our codebase for Causal ATE computation.
+To compute ATE scores for multiple classifiers, execute:
+
+```bash
+python compute_ate_scores_multiple_classifiers.py
+```
+
+We invite reviewers and fellow researchers to contribute and add to our codebase for Causal ATE computation.
 
 ## License
 

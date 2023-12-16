@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 import time
-import classifier, clean_data, mask_and_replace
+import classifier_models, clean_data, mask_and_replace
 from utilities import pretty_print_three_preds
 from pathlib import Path
 
@@ -56,7 +56,7 @@ if __name__ == "__main__":
 
     # GAO
     data = clean_data.clean_data(filename='gao')
-    classifier, vectorizer = classifier.train_classifier(data)
+    classifier, vectorizer = classifier_models.train_classifier(data)
 
     unmasked_path = "outputs/gao_unmasked.csv"
     my_file = Path(unmasked_path)
@@ -85,7 +85,7 @@ if __name__ == "__main__":
 
     # ZAMPIERI
     data = clean_data.clean_data(filename='zampieri')
-    classifier, vectorizer = classifier.train_classifier(data)
+    classifier, vectorizer = classifier_models.train_classifier(data)
 
     unmasked_path = "outputs/zampieri_unmasked.csv"
     my_file = Path(unmasked_path)

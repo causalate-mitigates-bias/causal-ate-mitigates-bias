@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 import time
-import classifier, clean_data, mask_and_replace
+import classifier_models, clean_data, mask_and_replace
 from utilities import pretty_print_three_preds
 from pathlib import Path
 from compute_ate_scores import getATEScores
@@ -55,12 +55,14 @@ if __name__ == "__main__":
     # Set a random seed for reproducability
     np.random.seed(8)
     np.set_printoptions(precision=6, suppress=True, linewidth=200)
+    # Expect 40 minutes of runtime on a single cpu thread (if the unmasked df's are available).
 
     # ZAMPIERI
     data = clean_data.clean_data(filename='zampieri')
-    classifier_names = ["LR", "SVM", "DecisionTree", "NaiveBayes"]
+    # classifier_names = ["LR", "SVM", "GradientBoost", "NaiveBayes"]
+    classifier_names = ["LR", "GradientBoost", "NaiveBayes"] #SVM is super slow
     for classifier_name in classifier_names:
-        classifier, vectorizer = classifier.train_classifier(data, classifier=classifier_name)
+        input_classifier, vectorizer = classifier_models.train_classifier(data, classifier=classifier_name)
 
         unmasked_path = "outputs/zampieri_unmasked.csv"
         my_file = Path(unmasked_path)
@@ -74,14 +76,14 @@ if __name__ == "__main__":
                                                                                  normalizer_sequence=None,
                                                                                  replacement_model='roberta-base')
 
-        ate_dict = getATEScores(input_unmasked_df=unmasked_df, input_classifier=classifier,
+        ate_dict = getATEScores(input_unmasked_df=unmasked_df, input_classifier=input_classifier,
                                 input_vectorizer=vectorizer,
-                                output_unmasked_file_with_scores="outputs/zampieri_unmasked_with_scores" + classifier_name + ".csv",
-                                output_ate_csv_file="outputs/zampieri_scores" + classifier_name + ".csv")
+                                output_unmasked_file_with_scores="outputs/zampieri_unmasked_with_scores_" + classifier_name + ".csv",
+                                output_ate_csv_file="outputs/zampieri_scores_" + classifier_name + ".csv")
 
         test_array = ["female", "black", "gay", "hispanic", "african"]
         X_test = vectorizer.transform(test_array)
-        predictions = classifier.predict_proba(X_test)
+        predictions = input_classifier.predict_proba(X_test)
         ate_predictions = [ate_dict[x] for x in test_array]
 
         print("-"*50)
