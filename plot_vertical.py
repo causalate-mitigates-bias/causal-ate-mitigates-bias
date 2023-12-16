@@ -22,11 +22,11 @@ df_zampieri = df_zampieri.sort_values(by='Input')
 df_gao = df_gao.sort_values(by='Input')
 
 # Plotting with updated y-axis label and ordered x-axis
-fig, axes = plt.subplots(1, 2, figsize=(12, 4))
+fig, axes = plt.subplots(2, 1, figsize=(4, 6))
 
 # Font sizes
-title_fontsize = 14
-axes_label_fontsize = 12
+title_fontsize = 12
+axes_label_fontsize = 11
 tick_fontsize = 11
 legend_fontsize = 11
 
@@ -50,6 +50,6 @@ axes[1].set_ylabel('Toxicity Scores', fontsize=axes_label_fontsize)
 axes[1].legend(fontsize=legend_fontsize)
 
 plt.tight_layout()
-plt.savefig("plots/difference_in_bias_side_by_side.png", dpi=199)
-plt.savefig("plots/difference_in_bias_side_by_side.svg", dpi=199)
+plt.savefig("plots/difference_in_bias_vertical.png", dpi=199)
+plt.savefig("plots/difference_in_bias_vertical.svg", dpi=199)
 plt.show()
