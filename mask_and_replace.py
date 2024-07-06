@@ -45,7 +45,6 @@ def expand_df_with_masked_words(inputDF):
     inputDFWithMaskedSentences = inputDFWithMaskedSentences.set_index('masked_sentence_id')
     return inputDFWithMaskedSentences
 
-
 # We can try Stop words from nltk
 def get_NLTK_stop_words():
     # If not downloaded, download the 'punkt' and 'stopwords' dictionaries.
