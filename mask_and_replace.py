@@ -57,11 +57,11 @@ def get_NLTK_stop_words():
         nltk.download('stopwords')
 
     # Check if 'punkt' is already downloaded
-    try:
-        nltk.data.find('corpora/punkt')
-    except LookupError:
-        # If not found, download punkt
-        nltk.download('punkt')
+    # try:
+    #     nltk.data.find('corpora/punkt')
+    # except LookupError:
+    #     # If not found, download punkt
+    #     nltk.download('punkt')
 
     nltkStopwords = nltk.corpus.stopwords.words('english')
     # print(nltkStopwords)

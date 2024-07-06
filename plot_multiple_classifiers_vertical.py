@@ -64,5 +64,5 @@ axes[2].legend(fontsize=legend_fontsize)
 plt.tight_layout()
 plt.savefig("plots/multiple_classifiers_vertical.png", dpi=199)
 plt.savefig("plots/multiple_classifiers_vertical.svg", dpi=199)
-
+plt.savefig("plots/multiple_classifiers_vertical.pdf", dpi=199)
 plt.show()

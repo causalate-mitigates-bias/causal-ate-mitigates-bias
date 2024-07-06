@@ -56,7 +56,8 @@ if __name__ == "__main__":
 
     # GAO
     data = clean_data.clean_data(filename='gao')
-    classifier, vectorizer = classifier_models.train_classifier(data)
+    # classifier, vectorizer = classifier_models.train_classifier(data)
+    classifier, vectorizer = classifier_models.train_classifier(data, classifier="NN3Layer20105")
 
     unmasked_path = "outputs/gao_unmasked.csv"
     my_file = Path(unmasked_path)

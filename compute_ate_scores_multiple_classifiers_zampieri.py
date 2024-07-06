@@ -60,7 +60,7 @@ if __name__ == "__main__":
     # ZAMPIERI
     data = clean_data.clean_data(filename='zampieri')
     # Gao
-    data = clean_data.clean_data(filename='gao')
+    # data = clean_data.clean_data(filename='gao')
 
     # classifier_names = ["LR", "SVM", "GradientBoost", "NaiveBayes"]
     # classifier_names = ["LR", "GradientBoost", "NaiveBayes"] #SVM is super slow
@@ -77,25 +77,25 @@ if __name__ == "__main__":
             # file exists
             unmasked_df = pd.read_csv(unmasked_path, sep="|")
         else:
-            # masked_df, unmasked_df = mask_and_replace.create_masked_replacements(input_df=data,
-            #                                                                      outfile_masked="outputs/zampieri_masked.csv",
-            #                                                                      outfile_unmasked=unmasked_path,
-            #                                                                      normalizer_sequence=None,
-            #                                                                      replacement_model='roberta-base')
             masked_df, unmasked_df = mask_and_replace.create_masked_replacements(input_df=data,
-                                                                                 outfile_masked="outputs/gao_masked.csv",
+                                                                                 outfile_masked="outputs/zampieri_masked.csv",
                                                                                  outfile_unmasked=unmasked_path,
                                                                                  normalizer_sequence=None,
                                                                                  replacement_model='roberta-base')
+            # masked_df, unmasked_df = mask_and_replace.create_masked_replacements(input_df=data,
+            #                                                                      outfile_masked="outputs/gao_masked.csv",
+            #                                                                      outfile_unmasked=unmasked_path,
+            #                                                                      normalizer_sequence=None,
+            #                                                                      replacement_model='roberta-base')
 
-        # ate_dict = getATEScores(input_unmasked_df=unmasked_df, input_classifier=input_classifier,
-        #                         input_vectorizer=vectorizer,
-        #                         output_unmasked_file_with_scores="outputs/zampieri_unmasked_with_scores_" + classifier_name + ".csv",
-        #                         output_ate_csv_file="outputs/zampieri_scores_" + classifier_name + ".csv")
         ate_dict = getATEScores(input_unmasked_df=unmasked_df, input_classifier=input_classifier,
                                 input_vectorizer=vectorizer,
-                                output_unmasked_file_with_scores="outputs/gao_unmasked_with_scores_" + classifier_name + ".csv",
-                                output_ate_csv_file="outputs/gao_scores_" + classifier_name + ".csv")
+                                output_unmasked_file_with_scores="outputs/zampieri_unmasked_with_scores_" + classifier_name + ".csv",
+                                output_ate_csv_file="outputs/zampieri_scores_" + classifier_name + ".csv")
+        # ate_dict = getATEScores(input_unmasked_df=unmasked_df, input_classifier=input_classifier,
+        #                         input_vectorizer=vectorizer,
+        #                         output_unmasked_file_with_scores="outputs/gao_unmasked_with_scores_" + classifier_name + ".csv",
+        #                         output_ate_csv_file="outputs/gao_scores_" + classifier_name + ".csv")
 
         test_array = ["female", "black", "gay", "hispanic", "african"]
         X_test = vectorizer.transform(test_array)

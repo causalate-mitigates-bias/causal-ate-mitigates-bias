@@ -9,6 +9,7 @@ from sklearn.ensemble import GradientBoostingClassifier
 
 from sklearn.svm import SVC
 from sklearn.naive_bayes import MultinomialNB
+from sklearn.neural_network import MLPClassifier
 
 from sklearn.metrics import accuracy_score
 import clean_data
@@ -36,6 +37,15 @@ def train_classifier(input_df, text_column_name='text', labels_column_name='labe
         classifier = GradientBoostingClassifier(random_state=42)
     elif classifier == "NaiveBayes":
         classifier = MultinomialNB()
+    elif classifier == "NN1Layer5":
+        # classifier = MLPClassifier(solver='lbfgs', alpha=1e-4, hidden_layer_sizes=(5), random_state=1)
+        classifier = MLPClassifier(solver='lbfgs', hidden_layer_sizes=(5), random_state=1, max_iter=10000)
+    elif classifier == "NN2Layer105":
+        # classifier = MLPClassifier(solver='lbfgs', alpha=1e-5, hidden_layer_sizes=(10, 5), random_state=1)
+        classifier = MLPClassifier(solver='lbfgs', hidden_layer_sizes=(10, 5), random_state=1, max_iter=10000)
+    elif classifier == "NN3Layer20105":
+        # classifier = MLPClassifier(solver='lbfgs', alpha=1e-3, hidden_layer_sizes=(20, 10, 5), random_state=1)
+        classifier = MLPClassifier(solver='lbfgs', hidden_layer_sizes=(20, 10, 5), random_state=1, max_iter=10000)
     else:
         classifier = MultinomialNB()  # Setting Multinomial Naive Bayes Classifier as default
     classifier.fit(X_train, y_train)
