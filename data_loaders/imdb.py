@@ -8,6 +8,11 @@ from torchtext.data.utils import get_tokenizer
 from torchtext.vocab import build_vocab_from_iterator
 from torchtext.datasets import IMDB
 
+try:
+    from torch.utils.data.datapipes.utils.common import DILL_AVAILABLE
+except ImportError:
+    DILL_AVAILABLE = False
+
 # Define tokenizer
 tokenizer = get_tokenizer('spacy', language='en_core_web_sm')
 
@@ -32,7 +37,7 @@ def label_pipeline(x):
     return 1 if x == 'pos' else 0
 
 # Collate function for DataLoader
-def collate_batch(batch, vocab = vocab):
+def collate_batch(batch, vocab=vocab):
     label_list, text_list, lengths = [], [], []
     for (_label, _text) in batch:
         label_list.append(label_pipeline(_label))
@@ -56,5 +61,3 @@ def load_imdb_reviews(batch_size=64):
     test_loader = DataLoader(test_data, batch_size=batch_size, shuffle=False, collate_fn=collate_batch)
 
     return train_loader, test_loader
-
-

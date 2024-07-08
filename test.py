@@ -6,8 +6,8 @@ def test_nn(model, test_loader, criterion, device):
     test_loss = 0.0
     correct = 0
     with torch.no_grad():
-        for inputs, targets in tqdm(test_loader, desc="Testing"):
-            inputs, targets = inputs.to(device), targets.to(device)
+        for inputs, targets, _ in tqdm(test_loader, desc="Testing"):  # Ignore lengths
+            inputs, targets = inputs.to(device).long(), targets.to(device).view(-1, 1)  # Ensure targets have shape (batch_size, 1)
             outputs = model(inputs)
             test_loss += criterion(outputs, targets).item()
             pred = (outputs > 0.5).float()
