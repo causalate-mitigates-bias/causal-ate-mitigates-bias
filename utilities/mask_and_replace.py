@@ -1,6 +1,6 @@
 import numpy as np
 import time
-import clean_data
+from utilities.clean_data import clean_data
 import nltk, string
 from nltk.tokenize import word_tokenize
 from tokenizers.normalizers import NFD, StripAccents, Strip, Lowercase
@@ -270,7 +270,7 @@ if __name__ == "__main__":
     np.random.seed(8)
     np.set_printoptions(precision=6, suppress=True, linewidth=200)
     normalizer_sequence = [NFD(), StripAccents(), Strip(), Lowercase()]
-    gao_data = clean_data.clean_data(filename='gao')
+    gao_data = clean_data(filename='gao')
     gao_data_masked, gao_data_unmasked = create_masked_replacements(input_df=gao_data,
                                                                     outfile_masked="outputs/gao_masked.csv",
                                                                     outfile_unmasked="outputs/gao_unmasked.csv",
@@ -279,7 +279,7 @@ if __name__ == "__main__":
 
 
 
-    zampieri_data = clean_data.clean_data(filename='zampieri')
+    zampieri_data = clean_data(filename='zampieri')
 
     zampieri_data_masked, zampieri_data_unmasked = create_masked_replacements(input_df=zampieri_data,
                                                                     outfile_masked="outputs/zampieri_masked.csv",

@@ -61,3 +61,23 @@ def load_imdb_reviews(batch_size=64):
     test_loader = DataLoader(test_data, batch_size=batch_size, shuffle=False, collate_fn=collate_batch)
 
     return train_loader, test_loader
+
+# New function to load IMDB reviews dataset with text strings for perturbation
+def load_imdb_reviews_with_text(batch_size=64):
+    # Convert iterators to lists for DataLoader
+    train_data = list(train_iter)
+    test_data = list(test_iter)
+
+    # Create DataLoader with text strings
+    def collate_text_batch(batch):
+        label_list, text_list = [], []
+        for (_label, _text) in batch:
+            label_list.append(label_pipeline(_label))
+            text_list.append(_text)
+        label_list = torch.tensor(label_list, dtype=torch.float32)
+        return text_list, label_list
+
+    train_loader = DataLoader(train_data, batch_size=batch_size, shuffle=True, collate_fn=collate_text_batch)
+    test_loader = DataLoader(test_data, batch_size=batch_size, shuffle=False, collate_fn=collate_text_batch)
+
+    return train_loader, test_loader

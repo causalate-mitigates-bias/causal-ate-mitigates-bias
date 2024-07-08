@@ -1,3 +1,10 @@
+import os
+import sys
+
+# Add the project root to the system path
+project_root = os.getcwd()
+sys.path.insert(0, project_root)
+
 import matplotlib.pyplot as plt
 import pandas as pd
 

@@ -1,6 +1,8 @@
 import pandas as pd
 from tokenizers.normalizers import NFD, StripAccents, Strip, Lowercase
 from nltk.tokenize import word_tokenize
+import time
+import numpy as np
 
 def pretty_print_three_preds(input_list, predictions, ate_scores):
     # Header row
@@ -32,7 +34,7 @@ if __name__=="__main__":
 
 
     # Read the CSV file into a Pandas DataFrame named 'gao'
-    gao = pd.read_csv("datasets/gao.csv")
+    gao = pd.read_csv("../datasets/gao.csv")
 
     # Print the column names of the 'gao' DataFrame
     print("gao.columns =", gao.columns)
@@ -50,7 +52,7 @@ if __name__=="__main__":
     print("len(toxic_dao) =", len(toxic_dao))
 
     # Read the CSV file into a Pandas DataFrame named 'zampieri'
-    zampieri = pd.read_csv("datasets/zampieri.csv")
+    zampieri = pd.read_csv("../datasets/zampieri.csv")
 
     # Print the column names of the 'zampieri' DataFrame
     print("zampieri.columns =", zampieri.columns)

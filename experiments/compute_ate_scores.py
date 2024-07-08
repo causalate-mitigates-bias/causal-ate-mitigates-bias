@@ -1,8 +1,17 @@
+import os
+import sys
+
+# Add the project root to the system path
+project_root = os.getcwd()
+sys.path.insert(0, project_root)
+
 import numpy as np
 import pandas as pd
 import time
-import classifier_models, clean_data, mask_and_replace
-from utilities import pretty_print_three_preds
+from utilities.clean_data import clean_data
+from utilities.mask_and_replace import create_masked_replacements
+from utilities.printing_utilities import pretty_print_three_preds
+from utilities.classifier_models import train_classifier
 from pathlib import Path
 
 # Disable Setting with copy warning. This is false positive error. See following discussion.
@@ -55,17 +64,17 @@ if __name__ == "__main__":
     np.set_printoptions(precision=6, suppress=True, linewidth=200)
 
     # GAO
-    data = clean_data.clean_data(filename='gao')
-    # classifier, vectorizer = classifier_models.train_classifier(data)
-    classifier, vectorizer = classifier_models.train_classifier(data, classifier="NN3Layer20105")
+    data = clean_data(filename='gao')
+    # classifier, vectorizer = train_classifier(data)
+    classifier, vectorizer = train_classifier(data, classifier="NN3Layer20105")
 
-    unmasked_path = "outputs/gao_unmasked.csv"
+    unmasked_path = "../outputs/gao_unmasked.csv"
     my_file = Path(unmasked_path)
     if my_file.is_file():
         # file exists
         unmasked_df = pd.read_csv(unmasked_path, sep="|")
     else:
-        masked_df, unmasked_df = mask_and_replace.create_masked_replacements(input_df=data,
+        masked_df, unmasked_df = create_masked_replacements(input_df=data,
                                                             outfile_masked="outputs/gao_masked.csv",
                                                             outfile_unmasked=unmasked_path,
                                                             normalizer_sequence=None,
@@ -73,8 +82,8 @@ if __name__ == "__main__":
 
     ate_dict = getATEScores(input_unmasked_df=unmasked_df, input_classifier=classifier,
                             input_vectorizer=vectorizer,
-                            output_unmasked_file_with_scores="outputs/gao_unmasked_with_scores.csv",
-                            output_ate_csv_file="outputs/gao_scores.csv")
+                            output_unmasked_file_with_scores="../outputs/gao_unmasked_with_scores.csv",
+                            output_ate_csv_file="../outputs/gao_scores.csv")
 
     test_array = ["female", "black", "gay", "hispanic", "african"]
     X_test = vectorizer.transform(test_array)
@@ -85,16 +94,16 @@ if __name__ == "__main__":
     pretty_print_three_preds(test_array, predictions, ate_predictions)
 
     # ZAMPIERI
-    data = clean_data.clean_data(filename='zampieri')
-    classifier, vectorizer = classifier_models.train_classifier(data)
+    data = clean_data(filename='zampieri')
+    classifier, vectorizer = train_classifier(data)
 
-    unmasked_path = "outputs/zampieri_unmasked.csv"
+    unmasked_path = "../outputs/zampieri_unmasked.csv"
     my_file = Path(unmasked_path)
     if my_file.is_file():
         # file exists
         unmasked_df = pd.read_csv(unmasked_path, sep="|")
     else:
-        masked_df, unmasked_df = mask_and_replace.create_masked_replacements(input_df=data,
+        masked_df, unmasked_df = create_masked_replacements(input_df=data,
                                                             outfile_masked="outputs/zampieri_masked.csv",
                                                             outfile_unmasked=unmasked_path,
                                                             normalizer_sequence=None,
@@ -104,7 +113,7 @@ if __name__ == "__main__":
     ate_dict = getATEScores(input_unmasked_df=unmasked_df, input_classifier=classifier,
                             input_vectorizer=vectorizer,
                             output_unmasked_file_with_scores="outputs/zampieri_unmasked_with_scores.csv",
-                            output_ate_csv_file="outputs/zampieri_scores.csv")
+                            output_ate_csv_file="../outputs/zampieri_scores.csv")
 
     test_array = ["female", "black", "gay", "hispanic", "african"]
     X_test = vectorizer.transform(test_array)

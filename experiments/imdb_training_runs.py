@@ -8,14 +8,13 @@ sys.path.insert(0, project_root)
 import torch
 import torch.nn as nn
 import torch.optim as optim
-from tqdm import tqdm
-from torch.utils.data import DataLoader, TensorDataset
 
-from data_loaders.imdb import load_imdb_reviews, vocab
+from data_loaders.imdb import load_imdb_reviews, load_imdb_reviews_with_text, vocab
 from models.simpleNN import SimpleNN
-from train import train
-from test import test_nn
-from train_ate import perturb_sentence, generate_perturbation_data, train_ate_model
+from utilities.printing_utilities import train
+from utilities.printing_utilities import test_nn
+from utilities.printing_utilities import train_ate_model
+from utilities.printing_utilities import generate_perturbed_dataloader, compute_perturbation_scores
 
 
 def main():
@@ -41,10 +40,16 @@ def main():
     test_accuracy = test_nn(model, test_loader, criterion, device)
     print(f"Regular model test accuracy: {test_accuracy:.2f}%")
 
-    # Generate perturbation data
-    print("Generating perturbation data...")
-    new_batch_inputs, new_batch_outputs = generate_perturbation_data(model, train_loader, vocab, device,
-                                                                     num_perturbations=10)
+    # Load IMDB data with text strings for perturbation
+    text_train_loader, _ = load_imdb_reviews_with_text(batch_size=64)
+
+    # Generate perturbed DataLoader
+    print("Generating perturbed DataLoader...")
+    perturbed_loader = generate_perturbed_dataloader(text_train_loader, vocab, batch_size=64, num_perturbations=10)
+
+    # Compute perturbation scores
+    print("Computing perturbation scores...")
+    new_batch_inputs, new_batch_outputs = compute_perturbation_scores(model, perturbed_loader, device)
 
     # Define and train the ATE model
     ate_model = SimpleNN(vocab_size, embed_dim, 1)

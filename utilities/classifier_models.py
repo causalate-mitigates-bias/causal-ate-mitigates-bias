@@ -12,7 +12,7 @@ from sklearn.naive_bayes import MultinomialNB
 from sklearn.neural_network import MLPClassifier
 
 from sklearn.metrics import accuracy_score
-import clean_data
+from utilities.clean_data import clean_data
 
 
 def train_classifier(input_df, text_column_name='text', labels_column_name='labels', test_size=0.05, random_seed=8,
@@ -84,12 +84,12 @@ if __name__ == "__main__":
     np.random.seed(8)
     np.set_printoptions(precision=6, suppress=True, linewidth=200)
 
-    gao_data = clean_data.clean_data(filename='gao')
+    gao_data = clean_data(filename='gao')
     print("gao_data.columns =", gao_data.columns)
     print("gao_data.head(5) =", gao_data.head(5))
     gao_classifier, vectorizer_gao = train_classifier(gao_data)
 
-    zampieri_data = clean_data.clean_data(filename='zampieri')
+    zampieri_data = clean_data(filename='zampieri')
     print("zampieri_data.columns =", zampieri_data.columns)
     print("zampieri_data.head(5) =", zampieri_data.head(5))
     zampieri_classifier, vectorizer_zampieri = train_classifier(zampieri_data)
