@@ -18,7 +18,7 @@ outputs/zampieri_unmasked*
 outputs/gao_masked*
 outputs/gao_unmasked*
 
-saved_models/*
+saved/*
 # IntelliJ project files
 .idea
 *.iml

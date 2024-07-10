@@ -14,8 +14,8 @@ from models.simpleNN import SimpleNN
 from utilities.train import train, train_sklearn_model
 from utilities.test import test_nn, test_sklearn_model
 from utilities.train_ate import train_ate_model, train_sklearn_ate_model
-from utilities.generate_ate_data_20240710 import generate_perturbed_dataloader, compute_perturbation_scores
-from utilities.generate_ate_data_20240710 import generate_perturbed_dataloader_sklearn, compute_sklearn_perturbation_scores
+from archived.generate_ate_data_20240710 import generate_perturbed_dataloader, compute_perturbation_scores
+from archived.generate_ate_data_20240710 import generate_perturbed_dataloader_sklearn, compute_sklearn_perturbation_scores
 from utilities.general_utils import set_all_seeds
 from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import StandardScaler
@@ -52,7 +52,7 @@ def main():
         if model_type == "torch":
             # Load IMDB data
             train_loader, test_loader = load_imdb_reviews(batch_size=64)
-            model_save_path = "saved_models/simplenn_imdb_model.pt"
+            model_save_path = "saved/simplenn_imdb_model.pt"
             criterion = nn.BCELoss()
             if os.path.exists(model_save_path):
                 model.load_state_dict(torch.load(model_save_path))
@@ -99,7 +99,7 @@ def main():
             print("Training the ATE model...")
             train_ate_model(ate_model, new_batch_inputs, new_batch_outputs, ate_criterion, ate_optimizer, device, num_epochs=num_epochs)
             # Save the ATE model
-            ate_model_save_path = "saved_models/ate_model.pt"
+            ate_model_save_path = "saved/ate_model.pt"
             torch.save(ate_model.state_dict(), ate_model_save_path)
             print("ATE model saved.")
 
