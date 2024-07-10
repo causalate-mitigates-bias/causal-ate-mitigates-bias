@@ -1,5 +1,8 @@
+import numpy as np
 import torch
 from torch.utils.data import DataLoader, TensorDataset
+from sklearn.metrics import mean_squared_error
+
 from tqdm import tqdm
 
 
@@ -27,3 +30,17 @@ def train_ate_model(ate_model, new_batch_inputs, new_batch_outputs, criterion, o
             epoch_loss += loss.item()
 
         print(f"Epoch {epoch + 1}/{num_epochs} completed, Average Loss: {epoch_loss / len(train_loader):.4f}")
+
+
+def train_sklearn_ate_model(ate_model, new_batch_inputs, new_batch_outputs, num_epochs=10):
+    # Convert inputs and outputs to numpy arrays for sklearn
+    X_train = np.array(new_batch_inputs)
+    y_train = np.array(new_batch_outputs)
+
+    for epoch in range(num_epochs):
+        ate_model.fit(X_train, y_train)
+        predictions = ate_model.predict(X_train)
+        loss = mean_squared_error(y_train, predictions)
+        print(f"Epoch {epoch + 1}/{num_epochs} completed, MSE Loss: {loss:.4f}")
+
+    return ate_model
