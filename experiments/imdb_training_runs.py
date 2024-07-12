@@ -63,7 +63,8 @@ def main():
                                                          vocab,
                                                          batch_size=64,
                                                          perturbation_rate=0.5,
-                                                         num_perturbations=50)
+                                                         num_perturbations=50,
+                                                         n_gram_length=5)
 
         # View the perturbed sentences
         # for original, perturbed, perturbed_part in perturbed_loader:
