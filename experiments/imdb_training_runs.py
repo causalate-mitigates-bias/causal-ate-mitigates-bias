@@ -23,7 +23,7 @@ set_all_seeds(42)
 
 def main():
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-    num_epochs = 10
+    num_epochs = 5
     model = SimpleNN(vocab_size=len(vocab), embed_dim=100, output_dim=1)
     # Load IMDB data
     train_loader, test_loader = load_imdb_reviews(batch_size=64)
