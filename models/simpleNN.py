@@ -1,7 +1,6 @@
 # models/simpleNN.py
 import torch.nn as nn
 
-
 class SimpleNN(nn.Module):
     def __init__(self, vocab_size, embed_dim, output_dim):
         super(SimpleNN, self).__init__()
@@ -11,7 +10,7 @@ class SimpleNN(nn.Module):
         self.fc2 = nn.Linear(128, output_dim)
         self.sigmoid = nn.Sigmoid()
 
-    def forward(self, x):
+    def forward(self, x, lengths=None):  # Lengths included for consistency with template
         x = self.embedding(x).mean(dim=1)  # Average the embeddings along the sequence dimension
         x = self.fc1(x)
         x = self.relu(x)

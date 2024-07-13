@@ -10,7 +10,7 @@ class SimpleCNN(nn.Module):
         self.fc2 = nn.Linear(128, output_dim)
         self.sigmoid = nn.Sigmoid()
 
-    def forward(self, x):
+    def forward(self, x, lengths=None):  # Lengths included for consistency with template
         x = self.conv1(x)
         x = self.relu(x)
         x = self.pool(x)

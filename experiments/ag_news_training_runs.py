@@ -13,7 +13,7 @@ from data_loaders.ag_news import load_dataloaders, load_dataloaders_with_text, v
 from models.simpleRNN import SimpleRNN
 from utilities.train import train
 from utilities.test import test_nn, test_ate_nn, test_avg_nn_with_length
-from utilities.generate_ate_data import generate_perturbed_dataloader, tokenize_and_pad_with_length
+from utilities.generate_ate_data import generate_perturbed_dataloader, tokenize_and_pad
 from utilities.generate_ate_data import compute_training_batch_filtered_using_model_scores_with_length
 from utilities.generate_ate_data import create_training_dataloader_with_length
 from utilities.general_utils import set_all_seeds, save_tokenized_loader_with_length, load_tokenized_loader_with_length
@@ -65,7 +65,7 @@ def main():
                                                          num_perturbations=50,
                                                          n_gram_length=5)
 
-        tokenized_loader = tokenize_and_pad_with_length(perturbed_loader, vocab, batch_size=64)
+        tokenized_loader = tokenize_and_pad(perturbed_loader, vocab, batch_size=64)
 
         # Save the tokenized loader
         # save_tokenized_loader_with_length(tokenized_loader, tokenized_loader_path)
