@@ -14,8 +14,8 @@ from models.simpleRNN import SimpleRNN
 from utilities.train import train
 from utilities.test import test_nn, test_ate_nn, test_avg_nn_with_length
 from utilities.generate_ate_data import generate_perturbed_dataloader, tokenize_and_pad
-from utilities.generate_ate_data import compute_training_batch_filtered_using_model_scores_with_length
-from utilities.generate_ate_data import create_training_dataloader_with_length
+from utilities.generate_ate_data import compute_training_batch_filtered_using_model_scores
+from utilities.generate_ate_data import create_training_dataloader
 from utilities.general_utils import set_all_seeds, save_tokenized_loader_with_length, load_tokenized_loader_with_length
 from utilities.train_ate import train_ate_model_with_length
 
@@ -80,10 +80,10 @@ def main():
         ate_model.to(device)
     else:
         # Compute the score differences
-        training_data = compute_training_batch_filtered_using_model_scores_with_length(model, tokenized_loader, device,
+        training_data = compute_training_batch_filtered_using_model_scores(model, tokenized_loader, device,
                                                                            change_threshold=1.0/output_dim)
         # Create training data loader
-        ate_training_data_loader = create_training_dataloader_with_length(training_data, vocab,
+        ate_training_data_loader = create_training_dataloader(training_data, vocab,
                                                                           batch_size=64, n_classes=output_dim)
 
         ate_optimizer = optim.Adam(ate_model.parameters(), lr=0.0003)
