@@ -22,6 +22,22 @@ def train(model, train_loader, criterion, optimizer, device, num_epochs=10):
 
         print(f"Epoch {epoch + 1}/{num_epochs} completed, Average Loss: {epoch_loss / len(train_loader):.4f}")
 
+def train(model, train_loader, criterion, optimizer, device, num_epochs):
+    model.train()
+    for epoch in range(num_epochs):
+        epoch_loss = 0
+        for text, labels, lengths in tqdm(train_loader, desc=f"Training Epoch {epoch + 1}"):
+            text, labels = text.to(device), labels.to(device)
+            optimizer.zero_grad()
+            predictions = model(text, lengths)
+            loss = criterion(predictions, labels)
+            loss.backward()
+            optimizer.step()
+            epoch_loss += loss.item()
+
+        print(f"Epoch {epoch+1}/{num_epochs}, Loss: {epoch_loss/len(train_loader)}")
+
+
 
 def train_sklearn_model(model, train_loader, device):
     texts, labels = [], []

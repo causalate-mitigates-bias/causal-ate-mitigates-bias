@@ -9,7 +9,7 @@ import torch
 import torch.nn as nn
 import torch.optim as optim
 
-from data_loaders.imdb import load_imdb_reviews, load_imdb_reviews_with_text, vocab
+from data_loaders.imdb import load_dataloaders, load_dataloaders_with_text, vocab
 from models.simpleNN import SimpleNN
 from utilities.train import train, train_sklearn_model
 from utilities.test import test_nn, test_sklearn_model
@@ -51,7 +51,7 @@ def main():
         ate_model = model_generator(model_name)
         if model_type == "torch":
             # Load IMDB data
-            train_loader, test_loader = load_imdb_reviews(batch_size=64)
+            train_loader, test_loader = load_dataloaders(batch_size=64)
             model_save_path = "saved/simplenn_imdb_model.pt"
             criterion = nn.BCELoss()
             if os.path.exists(model_save_path):
@@ -72,7 +72,7 @@ def main():
             test_accuracy = test_nn(model, test_loader, criterion, device)
 
         else:
-            train_loader, test_loader = load_imdb_reviews_with_text(batch_size=64)
+            train_loader, test_loader = load_dataloaders_with_text(batch_size=64)
 
             model, vectorizer = train_sklearn_model(model, train_loader, device)
             print("Testing the regular model...")
@@ -80,7 +80,7 @@ def main():
         print(f"Regular model test accuracy: {test_accuracy:.2f}%")
 
         # Load IMDB data with text strings for perturbation
-        text_train_loader, _ = load_imdb_reviews_with_text(batch_size=64)
+        text_train_loader, _ = load_dataloaders_with_text(batch_size=64)
 
         if model_type == "torch":
 
@@ -99,7 +99,7 @@ def main():
             print("Training the ATE model...")
             train_ate_model(ate_model, new_batch_inputs, new_batch_outputs, ate_criterion, ate_optimizer, device, num_epochs=num_epochs)
             # Save the ATE model
-            ate_model_save_path = "saved/ate_model.pt"
+            ate_model_save_path = "saved/ate_model_imdb.pt"
             torch.save(ate_model.state_dict(), ate_model_save_path)
             print("ATE model saved.")
 

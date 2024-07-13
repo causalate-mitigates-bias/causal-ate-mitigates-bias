@@ -7,12 +7,7 @@ torchtext.disable_torchtext_deprecation_warning()
 
 from torchtext.data.utils import get_tokenizer
 from torchtext.vocab import build_vocab_from_iterator
-from torchtext.datasets import IMDB
-
-try:
-    from torch.utils.data.datapipes.utils.common import DILL_AVAILABLE
-except ImportError:
-    DILL_AVAILABLE = False
+from torchtext.datasets import AG_NEWS
 
 # Define tokenizer
 tokenizer = get_tokenizer('spacy', language='en_core_web_sm')
@@ -25,7 +20,7 @@ def yield_tokens(data_iter):
 
 
 # Load your dataset
-train_iter, test_iter = IMDB(split=('train', 'test'))
+train_iter, test_iter = AG_NEWS(split=('train', 'test'))
 
 # Build the vocabulary from the training dataset
 vocab = build_vocab_from_iterator(yield_tokens(train_iter), specials=["<unk>", "<pad>"])
@@ -51,8 +46,7 @@ def text_pipeline(x, vocab):
 
 # Function to convert label to tensor
 def label_pipeline(x):
-    # return 1 if x == 'pos' else 0
-    return 1 if x == 2 else 0  # Convert to binary classes: 1 for label 2, 0 for label 1
+    return x - 1  # AG_NEWS labels are 1, 2, 3, 4. Convert to 0, 1, 2, 3
 
 
 # Collate function for DataLoader
@@ -65,16 +59,14 @@ def collate_batch(batch, vocab=vocab):
         lengths.append(len(processed_text))
     # Pad sequences
     text_list = pad_sequence(text_list, batch_first=True, padding_value=vocab["<pad>"])
-    label_list = torch.tensor(label_list, dtype=torch.float32)
+    label_list = torch.tensor(label_list, dtype=torch.int64)
     lengths = torch.tensor(lengths, dtype=torch.int64)
     return text_list, label_list, lengths
 
 
-# Function to load IMDB reviews dataset
+# Function to load AG News dataset
 def load_dataloaders(batch_size=64, num_training_samples=2500):
-    half_sample_size = num_training_samples//2
     # Convert iterators to lists for DataLoader
-    # train_data = list(train_iter)[:half_sample_size] + list(train_iter)[-half_sample_size:]
     train_data = list(train_iter)
     test_data = list(test_iter)
 
@@ -85,13 +77,11 @@ def load_dataloaders(batch_size=64, num_training_samples=2500):
     return train_loader, test_loader
 
 
-# Function to load IMDB reviews dataset with text strings for perturbation
-def load_dataloaders_with_text(batch_size=64, num_training_samples=2500):
-    half_sample_size = num_training_samples // 2
+# Function to load AG News dataset with text strings for perturbation
+def load_dataloaders_with_text(batch_size=64, num_training_samples=10000):
     # Convert iterators to lists for DataLoader
-    # train_data = list(train_iter)[:half_sample_size] + list(train_iter)[-half_sample_size:]
+    # train_data = list(train_iter)[:num_training_samples] + list(train_iter)[-num_training_samples:]
     train_data = list(train_iter)
-    # test_data = list(test_iter)[:500] + list(test_iter)[-500:]
     test_data = list(test_iter)
 
     # Create DataLoader with text strings
@@ -101,12 +91,6 @@ def load_dataloaders_with_text(batch_size=64, num_training_samples=2500):
             label_list.append(label_pipeline(_label))
             text_list.append(_text)
         label_list = torch.tensor(label_list, dtype=torch.float32)
-
-        # # Check unique classes in labels
-        # unique_classes = torch.unique(label_list)
-        # print("unique_classes=", unique_classes)
-        # if len(unique_classes) <= 1:
-        #     raise ValueError(f"The number of classes has to be greater than one; got {len(unique_classes)} class(es)")
 
         return text_list, label_list
 

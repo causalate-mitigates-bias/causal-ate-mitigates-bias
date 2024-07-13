@@ -25,6 +25,36 @@ def train_ate_model(ate_model, train_loader, criterion, optimizer, device, num_e
 
         print(f"Epoch {epoch + 1}/{num_epochs} completed, Average Loss: {epoch_loss / len(train_loader):.4f}")
 
+
+# Define a simple training function for the ATE model
+def train_ate_model_with_length(ate_model, train_loader, criterion, optimizer, device, num_epochs=10):
+    ate_model.to(device)
+    ate_model.train()
+
+    for epoch in range(num_epochs):
+        epoch_loss = 0.0
+        for inputs, lengths, targets in tqdm(train_loader, desc=f"Training Epoch {epoch + 1}"):
+            # Filter out sequences with length 0
+            non_zero_indices = lengths > 0
+            inputs, lengths, targets = inputs[non_zero_indices], lengths[non_zero_indices], targets[non_zero_indices]
+
+            if len(lengths) == 0:
+                continue
+
+            inputs, targets = inputs.to(device).long(), targets.to(device)
+            lengths = lengths.cpu().int()  # Ensure lengths are on CPU and int type
+
+            optimizer.zero_grad()
+            outputs = ate_model(inputs, lengths).squeeze()
+            loss = criterion(outputs, targets)
+            loss.backward()
+            optimizer.step()
+
+            epoch_loss += loss.item()
+
+        print(f"Epoch {epoch + 1}/{num_epochs} completed, Average Loss: {epoch_loss / len(train_loader):.4f}")
+
+
 #
 # # Define a simple training function for the ATE model
 # def train_ate_model(ate_model, new_batch_inputs, new_batch_outputs, criterion, optimizer, device, num_epochs=10):
