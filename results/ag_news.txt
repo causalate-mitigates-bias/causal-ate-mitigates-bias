@@ -1,0 +1,32 @@
+Unique labels in the train data: {1, 2, 3, 4}
+Unique labels in the test data: {1, 2, 3, 4}
+Testing the regular model...
+Test set: Average loss: 0.0146, Accuracy: 6126/7600 (80.61%)
+Model test accuracy: 80.61%
+Training the ATE model...
+Epoch 1/20 completed, Average Loss: 1.3670
+Epoch 2/20 completed, Average Loss: 1.3117
+Epoch 3/20 completed, Average Loss: 1.1058
+Epoch 4/20 completed, Average Loss: 1.0982
+Epoch 5/20 completed, Average Loss: 1.0101
+Epoch 6/20 completed, Average Loss: 0.9598
+Epoch 7/20 completed, Average Loss: 0.9447
+Epoch 8/20 completed, Average Loss: 0.9310
+Epoch 9/20 completed, Average Loss: 0.9242
+Epoch 10/20 completed, Average Loss: 0.9142
+Epoch 11/20 completed, Average Loss: 0.9029
+Epoch 12/20 completed, Average Loss: 0.9028
+Epoch 13/20 completed, Average Loss: 0.9043
+Epoch 14/20 completed, Average Loss: 0.9036
+Epoch 15/20 completed, Average Loss: 0.8995
+Epoch 16/20 completed, Average Loss: 0.8917
+Epoch 17/20 completed, Average Loss: 0.8887
+Epoch 18/20 completed, Average Loss: 0.8887
+Epoch 19/20 completed, Average Loss: 0.8868
+Epoch 20/20 completed, Average Loss: 0.8949
+ATE based AG News model saved.
+Testing the ATE model...
+Test set: Average loss: 0.0136, Accuracy: 6659/7600 (87.62%)
+ATE model test accuracy: 87.62%
+Test set: Average loss: 0.0139, Accuracy: 6528/7600 (85.89%)
+Average model test accuracy: 85.89%

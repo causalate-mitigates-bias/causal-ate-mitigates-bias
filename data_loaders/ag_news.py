@@ -35,8 +35,8 @@ def print_unique_labels(data, description_string):
 
 
 # Print unique labels in train and test datasets
-print_unique_labels(train_iter, "train")
-print_unique_labels(test_iter, "test")
+# print_unique_labels(train_iter, "train")
+# print_unique_labels(test_iter, "test")
 
 
 # Function to convert text to tensor
@@ -66,8 +66,8 @@ def collate_batch(batch, vocab=vocab):
 # Function to load AG News dataset
 def load_dataloaders(batch_size=64, num_training_samples=2500):
     # Convert iterators to lists for DataLoader
-    train_data = list(train_iter)[:num_training_samples] + list(train_iter)[-num_training_samples:]
-    # train_data = list(train_iter)
+    # train_data = list(train_iter)[:num_training_samples] + list(train_iter)[-num_training_samples:]
+    train_data = list(train_iter)
     test_data = list(test_iter)
 
     # Create DataLoader
@@ -80,8 +80,8 @@ def load_dataloaders(batch_size=64, num_training_samples=2500):
 # Function to load AG News dataset with text strings for perturbation
 def load_dataloaders_with_text(batch_size=64, num_training_samples=250):
     # Convert iterators to lists for DataLoader
-    train_data = list(train_iter)[:num_training_samples] + list(train_iter)[-num_training_samples:]
-    # train_data = list(train_iter)
+    # train_data = list(train_iter)[:num_training_samples] + list(train_iter)[-num_training_samples:]
+    train_data = list(train_iter)
     test_data = list(test_iter)
 
     # Create DataLoader with text strings
